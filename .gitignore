@@ -1,0 +1,14 @@
+release
+merge/release
+rootfs-C5/angstrom_rootfs.jffs2
+rootfs-C5/s9-firmware/angstrom_rootfs.jffs2
+angstrom_rootfs/angstrom_rootfs.jffs2.ubi
+angstrom_rootfs/angstrom_rootfs.jffs2
+angstrom_rootfs/s9-firmware-xilinx/angstrom_rootfs.jffs2
+merge/upgrade-rootfs-ubi/rootfs.jffs2
+merge/upgrade-rootfs-ubi/rootfs.jffs2.ubi
+merge/upgrade-rootfs-ubi/upgrade-rootfs/backup/angstrom_rootfs.jffs2
+angstrom_rootfs/angstrom_rootfs
+rootfs-C5/angstram_rootfs
+merge/upgrade-rootfs-ubi/upgrade-rootfs
+angstrom_rootfs/angstrom_rootfs

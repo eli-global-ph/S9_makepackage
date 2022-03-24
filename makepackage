@@ -6,7 +6,7 @@ ctrlbd=$4
 merged=$5
 freqtype=$6
 
-basepath=$XILINX_PACKAGE_BASE_PATH
+basepath=/home/rex/s9_makepackage
 
 if [ "$freq"x = "clean"x ]; then
 rm $basepath/release -rf
@@ -22,6 +22,7 @@ rm $basepath/merge/upgrade-rootfs-ubi/upgrade-rootfs/backup/angstrom_rootfs.jffs
 rm $basepath/angstrom_rootfs/angstrom_rootfs -rf
 rm $basepath/rootfs-C5/angstram_rootfs -rf
 rm $basepath/merge/upgrade-rootfs-ubi/upgrade-rootfs -rf
+rm $basepath/angstrom_rootfs/angstrom_rootfs -rf
 
 echo "Cleaned all the files which is created by makepackage!"
 exit 0
@@ -29,11 +30,14 @@ fi
 
 rm $basepath/angstrom_rootfs/angstrom_rootfs -rf
 cd $basepath/angstrom_rootfs
-tar -zxvf angstrom_rootfs.tgz
+# make self directory
+mkdir -p angstrom_rootfs 
+# extract inside the newly created directory
+tar -xf Angstrom-S9-antminer-custom-v2013.12.rootfs.tar.xz -C angstrom_rootfs
 
 rm $basepath/rootfs-C5/angstram_rootfs -rf
 cd $basepath/rootfs-C5
-tar -zxvf angstram_rootfs.tgz
+tar -zxvf angstram_rootfs.tgz 
 
 cd $basepath
 
