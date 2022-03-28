@@ -5,6 +5,7 @@ release=$3
 ctrlbd=$4
 merged=$5
 freqtype=$6
+gpg_pass=$7
 
 basepath=/home/rex/s9_makepackage
 
@@ -33,7 +34,7 @@ cd $basepath/angstrom_rootfs
 # make self directory
 mkdir -p angstrom_rootfs 
 # extract inside the newly created directory
-tar -xf Angstrom-S9-antminer-custom-v2013.12.rootfs.tar.xz -C angstrom_rootfs
+tar -xf Angstrom-S9-antminer-custom-v2013.12.rootfs.tar.gz -C angstrom_rootfs
 
 rm $basepath/rootfs-C5/angstram_rootfs -rf
 cd $basepath/rootfs-C5
@@ -236,12 +237,28 @@ fi
 
 cd $basepath/merge/release
 rm $basepath/merge/release/*.tar.gz -f
+
+# custom process for detach signing on fw file
+fw_file_name="fw.tar.gz"
+tar -zcvf "$fw_file_name" *
+# remove all files except fw.tar.gz 
+shopt -s extglob
+rm -rfv !(*.tar.gz)
+shopt -u extglob
+
+cp $basepath/merge/ubi_info $basepath/merge/release/ -f
+cp $basepath/merge/script/runme.sh $basepath/merge/release/ -f
+cp $basepath/merge/script/version_number $basepath/merge/release/ -f
+# sign file image
+echo "$gpg_pass" | gpg --detach-sign --passphrase-fd 0 "$fw_file_name"
+echo "$gpg_pass" | gpg --detach-sign --passphrase-fd 0 "runme.sh"
+#rm "$fw_file_name" -f
+
 if [ "$freqtype"x = "fixed"x ]; then
-file_name="Antminer-${miner_type}-${ctrlbd}-${c_time}-${freq}M-${release}-Update2UBI-NF.tar.gz"
+final_file_name="Antminer-${miner_type}-${ctrlbd}-${c_time}-${freq}M-${release}-Update2UBI-NF.tar.gz"
 else
-file_name="Antminer-${miner_type}-${ctrlbd}-${c_time}-autofreq-${release}-Update2UBI-NF.tar.gz"
+final_file_name="Antminer-${miner_type}-${ctrlbd}-${c_time}-autofreq-${release}-Update2UBI-NF.tar.gz"
 fi
-tar -zcvf "$file_name" *
+tar -zcvf "$final_file_name" *
 
 echo "Final Package is in ${basepath}/merge/release"
-
