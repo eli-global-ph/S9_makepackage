@@ -18,6 +18,8 @@ The command line's output will show the position of fw package created.
 3. user: is the package open to consumers.  (only can set "user" for fw package.)
 4. all: is the control board type. all means support xilinx board and altera board.
 5. merge: is used to combine the file system for upgrading usage with the normal miner's fw file system together, to fix some miner's failure on upgrade.
+6. frequency type: fixed or auto frequency
+7. gpg password: is the password set when gpg key is created
 
 
 There are only two application from bitmain: single-board-test and bmminer, which must be copied to app-bin subdir before make package.
